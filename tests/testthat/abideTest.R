@@ -5,5 +5,3 @@ derivatives = c("alff", "degree_binarize", "degree_weighted", "dual_regression",
 pipelines = c("ccs", "cpac", "dparsf", "niak")
 strategies = c("filt_global", "filt_noglobal", "nofilt_global", "nofilt_noglobal")
 
-library(parallel)
-abide = ABIDE(abideDir, derivatives = c('freesurfer'), file_ids = 'Pitt_0050003' )
