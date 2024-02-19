@@ -11,7 +11,10 @@ simSetup(
   nsim = 1000,
   ns = c(50, 100, 200, 400),
   nMeas = 1,
+  by='observations',
   mask = NULL,
+  formres,
+  W,
   ncores = parallel::detectCores()
 )
 }
@@ -28,7 +31,13 @@ simSetup(
 
 \item{nMeas}{Approximate average number of measurements per subject.}
 
+\item{by}{Specifications of the level (observation or individual) on which bootstrap is performed.}
+
 \item{mask}{If performing simulations under an alternative, signal can be added to the images within the mask.}
+
+\item{formres}{formula used for the mixed effect model.}
+
+\item{W}{weights assigned to subject for GEE model}
 
 \item{ncores}{number of cores for parallel commands.}
 }

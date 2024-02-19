@@ -18,7 +18,8 @@ Imports:
   pbapply,
   pbj,
   pbmcapply,
-  RNifti
+  RNifti,
+  testthat
 Depends:
   httr
 LazyData: true

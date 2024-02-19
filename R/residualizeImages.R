@@ -24,10 +24,10 @@
 #' @export
 # @examples
 residualizeImages = function(files, form, dat, mask, outfiles=NULL, outrds=NULL, mc.cores=getOption("mc.cores", 2L)){
-
+  
   cat('loading images.\n')
   y = simplify2array(mclapply(files, readNifti, mc.cores=mc.cores))
-
+  
   # run linear model to get residuals
   if(is.character(mask)){
     mask = RNifti::readNifti(mask)
@@ -39,12 +39,13 @@ residualizeImages = function(files, form, dat, mask, outfiles=NULL, outrds=NULL,
     estimates = mclapply(as.list(as.data.frame(y)), function(outcome){
       dat$outcome = outcome
       lmerMod = lmer(form, data=dat)
-      list(coefs = fixef(lmerMod), ranefs=do.call(cbind, ranef(lmerMod)[[1]]), resids=resid(lmerMod))
+      list(coefs = fixef(lmerMod), ranefs=do.call(cbind, ranef(lmerMod)[[1]]), 
+           resids=resid(lmerMod),vary=var(dat$outcome))
     }, mc.cores=mc.cores)
     # reorder list
     estimates = lapply(apply(do.call(rbind, estimates), 2, as.list), simplify2array)
     if(grepl('.rds$', outrds)){
-    saveRDS(estimates, outrds)
+      saveRDS(estimates, outrds)
     } else {
       save(estimates, file=outrds)
     }

@@ -6,8 +6,8 @@
 \usage{
 runSim(
   simdirs,
-  sims,
   n,
+  sim,
   nMeas,
   simfunc,
   simfuncArgs = NULL,
@@ -21,9 +21,9 @@ runSim(
 \arguments{
 \item{simdirs}{Vector of simulation directories created by simSetup.}
 
-\item{sims}{Vector of integers specifying simulation index. Does not have to be unique. Can be used for running a particular analysis in every kth simulation.}
-
 \item{n}{Integer sample size.}
+
+\item{sim}{Vector of integers specifying simulation index. Does not have to be unique. Can be used for running a particular analysis in every kth simulation.}
 
 \item{nMeas}{Numeric number of measurments per subject.}
 

@@ -6,9 +6,12 @@
 \usage{
 genSimData(
   files,
+  data,
   outfiles = NULL,
   n4sim,
   nMeas = NULL,
+  N4sim,
+  formres,
   mask = NULL,
   method = c("bootstrap", "synthetic"),
   lambda = 0.5
@@ -17,11 +20,17 @@ genSimData(
 \arguments{
 \item{files}{a vector of .nii or .nii.gz images.}
 
+\item{data}{a simulation dataset from simSetup function used for simulating y}
+
 \item{outfiles}{a vector of images to save the output.}
 
-\item{n4sim}{total number of measurements that we're simulating}
+\item{n4sim}{total number of subjects that we're simulating}
 
 \item{nMeas}{Approximate average number of measurements per subject.}
+
+\item{N4sim}{total number of measurements that we're simulating}
+
+\item{formres}{formula used in the lmer.}
 
 \item{mask}{image mask where data exist.}
 
