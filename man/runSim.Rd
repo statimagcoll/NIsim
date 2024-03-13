@@ -8,7 +8,6 @@ runSim(
   simdirs,
   n,
   sim,
-  nMeas,
   simfunc,
   simfuncArgs = NULL,
   mask = NULL,
@@ -24,8 +23,6 @@ runSim(
 \item{n}{Integer sample size.}
 
 \item{sim}{Vector of integers specifying simulation index. Does not have to be unique. Can be used for running a particular analysis in every kth simulation.}
-
-\item{nMeas}{Numeric number of measurments per subject.}
 
 \item{simfunc}{Function to evaluate on the simulated data.}
 

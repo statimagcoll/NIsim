@@ -23,7 +23,7 @@
 simSetup = function(images, data, outdir, nsim=1000, ns=c(50, 100, 200, 400), nMeas=1, by='observations',
                     mask=NULL, formres, W, ncores=parallel::detectCores() ){
 
-  if(by == 'obervations'){
+  if(by == 'observations'){
     # sample by observations with a fixed pre-specified sample size - fixed sample size
     sims = expand.grid(sim=1:nsim, n=ns, nMeas=nMeas, simdir=NA)
     data$images = images
@@ -111,7 +111,6 @@ parameterImage = function(mask, parameterImage, rs, betas){
 #' @param simdirs Vector of simulation directories created by simSetup.
 #' @param sims Vector of integers specifying simulation index. Does not have to be unique. Can be used for running a particular analysis in every kth simulation.
 #' @param n Integer sample size.
-#' @param nMeas Numeric number of measurments per subject.
 #' @param simfunc Function to evaluate on the simulated data.
 #' @param simfuncArgs List of arguments passed to simfunc.
 #' @param mask mask image argument passed to genSimData. Only required for genSimData function if betaimg is not NULL or if method='synthetic'
@@ -126,7 +125,7 @@ parameterImage = function(mask, parameterImage, rs, betas){
 #' @importFrom pbj addSignal
 #' @export
 
-runSim = function(simdirs, n, sim, nMeas, simfunc, simfuncArgs=NULL, mask=NULL, method=c('bootstrap', 'synthetic'), syntheticSqrt, ncores=parallel::detectCores(), ...){
+runSim = function(simdirs, n, sim, simfunc, simfuncArgs=NULL, mask=NULL, method=c('bootstrap', 'synthetic'), syntheticSqrt, ncores=parallel::detectCores(), ...){
   method = tolower(method)
   # simdir = simdirs$simdir[1]; sim = simdirs$sims[1]; nMeas=simdirs$nMeas[1]; n = simdirs$n[1]
   result = pbmcapply::pbmcmapply(function(simdir, n, simfunc, method, mask){
@@ -139,7 +138,7 @@ runSim = function(simdirs, n, sim, nMeas, simfunc, simfuncArgs=NULL, mask=NULL, 
     if(method=='bootstrap'){
       genSimData(files=dat$images, data = dat, outfiles=dat$tmpfiles, mask=mask, method=method)
     } else {
-      dat$id = factor(genSimData(files=syntheticSqrt, data = dat, outfiles=dat$tmpfiles, mask=mask, form = simConfig$formres, method=method, n4sim=n, N4sim=N4sim, nMeas=nMeas)$id)
+      dat$id = factor(genSimData(files=syntheticSqrt, data = dat, outfiles=dat$tmpfiles, mask=mask, form = simConfig$formres, method=method, n4sim=n, N4sim=N4sim)$id)
     }
     dat$images = dat$tmpfiles
     # simfuncArgs$sim = sim
@@ -147,7 +146,7 @@ runSim = function(simdirs, n, sim, nMeas, simfunc, simfuncArgs=NULL, mask=NULL, 
     result = do.call(simfunc, args = simfuncArgs)
     unlink(dat$images)
     return(result)
-  }, simdir=simdirs, n=n, sim = sim, nMeas=nMeas, MoreArgs=list(simfunc = simfunc, method = method, mask=mask), mc.cores = ncores)
+  }, simdir=simdirs, n=n, sim = sim, MoreArgs=list(simfunc = simfunc, method = method, mask=mask), mc.cores = ncores)
   return(result)
 }
 

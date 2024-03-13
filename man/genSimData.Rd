@@ -9,7 +9,6 @@ genSimData(
   data,
   outfiles = NULL,
   n4sim,
-  nMeas = NULL,
   N4sim,
   formres,
   mask = NULL,
@@ -25,8 +24,6 @@ genSimData(
 \item{outfiles}{a vector of images to save the output.}
 
 \item{n4sim}{total number of subjects that we're simulating}
-
-\item{nMeas}{Approximate average number of measurements per subject.}
 
 \item{N4sim}{total number of measurements that we're simulating}
 

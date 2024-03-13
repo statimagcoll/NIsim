@@ -9,7 +9,6 @@
 #' @param data a simulation dataset from simSetup function used for simulating y
 #' @param n4sim total number of subjects that we're simulating
 #' @param N4sim total number of measuremetns that we're simulating
-#' @param nMeas Approximate average number of measurements per subject. Will not be used when by = 'individuals'.
 #' @param formres formula used in linear mixed effect model
 #' @param mask image mask where data exist.
 #' @param method Method to generate data, either "synthetic" (i.e. multivariate normal) or "bootstrap."
@@ -22,7 +21,7 @@
 #' @export
 # @examples
 
-genSimData = function(files, data, outfiles=NULL, n4sim, nMeas=NULL, N4sim, formres, mask=NULL, method=c('bootstrap', 'synthetic'), lambda=0.5 ){
+genSimData = function(files, data, outfiles=NULL, n4sim, N4sim, formres, mask=NULL, method=c('bootstrap', 'synthetic'), lambda=0.5 ){
   if(tolower(method[1])=='synthetic'){
     # THIS CODE SIMULATES DATA FOR THE FULL SAMPLE, if n in simulation is larger than n in sample then it will create problems
     # contains residuals for entire study
